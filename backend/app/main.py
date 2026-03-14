@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from .database import Base, engine, SessionLocal
 from . import models, schemas, crud, auth
+from .email_utils import send_otp_email
 
 app = FastAPI(title="Inventory ERP API")
 
@@ -86,9 +87,13 @@ def forgot_password(req: schemas.OTPRequest, db: Session = Depends(get_db)):
     otp = crud.generate_otp_for_user(db, req.email)
     if not otp:
         return {"message": "If the email exists, an OTP has been sent."}
-    # In a real app, send email here. For now, print to console or return (dev only).
-    print(f"OTP for {req.email}: {otp}")
-    return {"message": "OTP generated. Check console for dev testing.", "dev_otp": otp}
+    
+    email_sent = send_otp_email(req.email, otp)
+    if not email_sent:
+        print(f"OTP for {req.email}: {otp}")
+        return {"message": "Email not configured. Check console for dev testing.", "dev_otp": otp}
+        
+    return {"message": "OTP has been sent to your email."}
 
 @app.post("/auth/reset-password")
 def reset_password(req: schemas.OTPVerify, db: Session = Depends(get_db)):
