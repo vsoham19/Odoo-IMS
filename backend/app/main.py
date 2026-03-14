@@ -207,7 +207,16 @@ def low_stock(db: Session = Depends(get_db)):
 
 @app.get("/dashboard")
 def dashboard(db: Session = Depends(get_db)):
-    return crud.dashboard(db)
+    stats = crud.dashboard(db)
+    stats["trends"] = [
+        {"month": "Jan", "stockLevel": 1400, "demand": 800},
+        {"month": "Feb", "stockLevel": 1200, "demand": 950},
+        {"month": "Mar", "stockLevel": 1500, "demand": 1100},
+        {"month": "Apr", "stockLevel": 1300, "demand": 1250},
+        {"month": "May", "stockLevel": 1600, "demand": 1400},
+        {"month": "Jun", "stockLevel": 1800, "demand": 1550},
+    ]
+    return stats
 
 @app.post("/orders")
 def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
@@ -220,7 +229,4 @@ def low_stock(db: Session = Depends(get_db)):
 @app.get("/prediction/{product_id}")
 def predict(product_id: int, db: Session = Depends(get_db)):
     return crud.demand_prediction(db, product_id)
-
-@app.get("/dashboard")
-def dashboard(db: Session = Depends(get_db)):
-    return crud.dashboard_stats(db)
+

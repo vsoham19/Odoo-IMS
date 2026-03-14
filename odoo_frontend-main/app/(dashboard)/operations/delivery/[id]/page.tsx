@@ -128,7 +128,7 @@ export default function DeliveryDetailPage() {
   return (
     <div className="space-y-6 pb-8 animate-in fade-in duration-500">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => router.back()}>
+        <Button variant="ghost" size="sm" className="h-9 w-9 p-0" onClick={() => router.back()}>
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">{delivery.reference}</h2>

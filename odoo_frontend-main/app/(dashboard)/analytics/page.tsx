@@ -25,7 +25,8 @@ export default function AnalyticsPage() {
     const fetchData = async () => {
       try {
         const res = await api.get("/dashboard");
-        setTrends(res.data.trends);
+        const trends = res.data.trends;
+        setTrends(trends && trends.length > 0 ? trends : mockTrends);
       } catch (error) {
         setTrends(mockTrends);
       } finally {

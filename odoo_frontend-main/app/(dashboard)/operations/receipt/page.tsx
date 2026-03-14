@@ -7,6 +7,7 @@ import { Loader2, Plus, Search, Filter, ArrowRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { OperationStatusBadge } from "@/components/operation-status-badge";
+import { AddReceiptDialog } from "@/components/add-receipt-dialog";
 import {
   Table,
   TableBody,
@@ -22,6 +23,7 @@ export default function ReceiptsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+  const [showAddDialog, setShowAddDialog] = useState(false);
 
   const receipts = operations.filter(o => o.type === "receipt");
 
@@ -71,7 +73,7 @@ export default function ReceiptsPage() {
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Receipts</h2>
           <p className="text-muted-foreground text-gray-500">Incoming inventory shipments from suppliers.</p>
         </div>
-        <Button className="bg-[#714B67] hover:bg-[#5e3d56] text-white">
+        <Button className="bg-[#714B67] hover:bg-[#5e3d56] text-white" onClick={() => setShowAddDialog(true)}>
           <Plus className="mr-2 h-4 w-4" /> New Receipt
         </Button>
       </div>
@@ -151,6 +153,8 @@ export default function ReceiptsPage() {
           </TableBody>
         </Table>
       </div>
+
+      <AddReceiptDialog open={showAddDialog} onOpenChange={setShowAddDialog} />
     </div>
   );
 }

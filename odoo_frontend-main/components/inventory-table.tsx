@@ -93,15 +93,15 @@ export function InventoryTable({ products }: { products: Product[] }) {
               <TableCell className="text-right">
                 {editingId === product.id ? (
                   <div className="flex justify-end gap-1">
-                    <Button size="icon" variant="ghost" className="h-8 w-8 text-emerald-600" onClick={() => handleSave(product.id)}>
+                    <Button size="sm" variant="ghost" className="h-8 w-8 text-emerald-600" onClick={() => handleSave(product.id)}>
                       <Save className="h-4 w-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" className="h-8 w-8 text-gray-400" onClick={cancelEdit}>
+                    <Button size="sm" variant="ghost" className="h-8 w-8 text-gray-400" onClick={cancelEdit}>
                       <X className="h-4 w-4" />
                     </Button>
                   </div>
                 ) : (
-                  <Button size="icon" variant="ghost" className="h-8 w-8 text-gray-400 hover:text-[#714B67]" onClick={() => handleEditClick(product)}>
+                  <Button size="sm" variant="ghost" className="h-8 w-8 text-gray-400 hover:text-[#714B67]" onClick={() => handleEditClick(product)}>
                     <Edit2 className="h-4 w-4" />
                   </Button>
                 )}

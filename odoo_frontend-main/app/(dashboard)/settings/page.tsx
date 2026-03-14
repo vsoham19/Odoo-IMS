@@ -52,7 +52,7 @@ export default function SettingsPage() {
           <CardDescription>Actions here cannot be undone.</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button variant="destructive">Delete Account</Button>
+          <Button variant="outline" className="text-rose-600 border-rose-200 hover:bg-rose-50">Delete Account</Button>
         </CardContent>
       </Card>
     </div>

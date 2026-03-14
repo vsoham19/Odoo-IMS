@@ -155,7 +155,7 @@ export default function LocationPage() {
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-600 hover:text-rose-700">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 text-rose-600 hover:text-rose-700">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>

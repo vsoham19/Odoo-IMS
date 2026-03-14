@@ -7,6 +7,7 @@ import { Plus, Search, Filter, ArrowRight, Clock, ChevronRight } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { OperationStatusBadge } from "@/components/operation-status-badge";
+import { AddDeliveryDialog } from "@/components/add-delivery-dialog";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -29,6 +30,7 @@ export default function DeliveryPage() {
   const [view, setView] = useState("list");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+  const [showAddDialog, setShowAddDialog] = useState(false);
 
   const deliveries = operations.filter(o => o.type === "delivery");
 
@@ -86,7 +88,7 @@ export default function DeliveryPage() {
               <TabsTrigger value="kanban">Kanban</TabsTrigger>
             </TabsList>
           </Tabs>
-          <Button className="bg-[#714B67] hover:bg-[#5e3d56] text-white">
+          <Button className="bg-[#714B67] hover:bg-[#5e3d56] text-white" onClick={() => setShowAddDialog(true)}>
             <Plus className="mr-2 h-4 w-4" /> New Delivery
           </Button>
         </div>
@@ -194,6 +196,7 @@ export default function DeliveryPage() {
           ))}
         </div>
       )}
+      <AddDeliveryDialog open={showAddDialog} onOpenChange={setShowAddDialog} />
     </div>
   );
 }
