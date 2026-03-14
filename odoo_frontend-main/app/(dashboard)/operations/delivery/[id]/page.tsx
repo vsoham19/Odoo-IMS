@@ -56,9 +56,19 @@ export default function DeliveryDetailPage() {
         }));
         if (backendProducts.length > 0) {
           setProducts(backendProducts);
+        } else {
+          // Fallback to mock products if DB is empty so the demo deliveries work
+          setProducts([
+            { id: "1", name: "Wireless Headphones", sku: "WH-100", stock: 50, demand: 10, reorderPoint: 10, supplier: "TechCorp", status: "In Stock" as const, price: 99.99 },
+            { id: "5", name: "USB-C Hub", sku: "UH-500", stock: 100, demand: 25, reorderPoint: 10, supplier: "TechCorp", status: "In Stock" as const, price: 39.99 },
+          ]);
         }
       } catch {
         console.warn("Could not load products from API");
+        setProducts([
+          { id: "1", name: "Wireless Headphones", sku: "WH-100", stock: 50, demand: 10, reorderPoint: 10, supplier: "TechCorp", status: "In Stock" as const, price: 99.99 },
+          { id: "5", name: "USB-C Hub", sku: "UH-500", stock: 100, demand: 25, reorderPoint: 10, supplier: "TechCorp", status: "In Stock" as const, price: 39.99 },
+        ]);
       }
     };
     loadProducts();
