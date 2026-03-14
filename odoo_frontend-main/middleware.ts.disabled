@@ -1,0 +1,34 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  // Check for Next.js auth-token cookie OR we can allow the client to handle it fully for pure SPA feel.
+  // But strict requirement says "Protect routes using middleware".
+  // Since we also need to "Store JWT token in localStorage", we can write the token to a cookie on login.
+  const token = request.cookies.get('auth-token')?.value;
+
+  const isLoginPage = request.nextUrl.pathname.startsWith('/login');
+  
+  // Exclude static files and api routes
+  if (request.nextUrl.pathname.startsWith('/_next') || request.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
+  if (!token && !isLoginPage && request.nextUrl.pathname !== '/') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  if (token && isLoginPage) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  if (request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL(token ? '/dashboard' : '/login', request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};
